@@ -73,35 +73,54 @@ class _HeaderWidgetTwo extends StatefulWidget {
 }
 
 class __HeaderWidgetTwoState extends State<_HeaderWidgetTwo> {
-  final TextEditingController _controller = TextEditingController();
+  final TextEditingController _loginTextController = TextEditingController();
   bool _isTextFieldEmpty = true;
+  final phoneRegex = RegExp(r'^((8|\+7)[\- ]?)?(\(?\d{3}\)?[\- ]?)?[\d\- ]{7,10}$');
+  String? _loginErrorText = null;
+  
+  void _auth(){
+    final login = _loginTextController.text;
+    if (login.contains('@')) {
+      _loginErrorText = null;
+    print('это почта');
+  } else if (phoneRegex.hasMatch(login)) {
+      _loginErrorText = null;
+      print('это телефон');
+    } else {
+      _loginErrorText = 'Телефон или почта указаны неверно';
+    }
+    setState(() {});
+  }
+  
 
   void _onTextChanged() {
     setState(() {
-      _isTextFieldEmpty = _controller.text.isEmpty;
+      _isTextFieldEmpty = _loginTextController.text.isEmpty;
     });
   }
 
   @override
   void initState() {
     super.initState();
-    _controller.addListener(_onTextChanged);
+    _loginTextController.addListener(_onTextChanged);
   }
 
   @override
   void dispose() {
-    _controller.dispose();
+    _loginTextController.dispose();
     super.dispose();
   }
   
   @override
   Widget build(BuildContext context) {
+    final _loginErrorText = this._loginErrorText;
     return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Container(
           height: 44,
           child: TextField(
-            controller: _controller,
+            controller: _loginTextController,
             style: const TextStyle(color: Colors.white), // Цвет текста
             decoration: InputDecoration(
               contentPadding: const EdgeInsets.symmetric(horizontal: 12),
@@ -111,8 +130,13 @@ class __HeaderWidgetTwoState extends State<_HeaderWidgetTwo> {
               fillColor: const Color(0xFF2A2A2E),
               border: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(8),
-                borderSide: BorderSide.none,
               ),
+              enabledBorder: _loginErrorText != null
+                  ? OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(8),
+                      borderSide: const BorderSide(color: Colors.red),
+                    )
+                  : null,
               focusedBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(8),
                 borderSide: const BorderSide(color: Color(0xFF529ef4)), // Цвет рамки при фокусировке
@@ -120,9 +144,17 @@ class __HeaderWidgetTwoState extends State<_HeaderWidgetTwo> {
             ),
           ),
         ),
+        if (_loginErrorText != null)
+          Container(
+            padding: const EdgeInsets.only(top: 8),
+            child: Text(
+              _loginErrorText,
+              style: const TextStyle(color: Colors.red, fontSize: 13),
+            ),
+          ),
         const SizedBox(height: 28),
         ElevatedButton(
-          onPressed: _isTextFieldEmpty ? null : (){}, 
+          onPressed: _isTextFieldEmpty ? null : _auth, 
           style: ElevatedButton.styleFrom(
             backgroundColor:Colors.white,
             disabledBackgroundColor: Colors.grey,
