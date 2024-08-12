@@ -76,16 +76,16 @@ class __HeaderWidgetTwoState extends State<_HeaderWidgetTwo> {
   final TextEditingController _loginTextController = TextEditingController();
   bool _isTextFieldEmpty = true;
   final phoneRegex = RegExp(r'^((8|\+7)[\- ]?)?(\(?\d{3}\)?[\- ]?)?[\d\- ]{7,10}$');
-  String? _loginErrorText = null;
+  String? _loginErrorText;
   
   void _auth(){
     final login = _loginTextController.text;
     if (login.contains('@')) {
       _loginErrorText = null;
-    print('это почта');
+      Navigator.of(context).pushNamed('/code');
   } else if (phoneRegex.hasMatch(login)) {
       _loginErrorText = null;
-      print('это телефон');
+      Navigator.of(context).pushNamed('/code');
     } else {
       _loginErrorText = 'Телефон или почта указаны неверно';
     }
@@ -113,11 +113,11 @@ class __HeaderWidgetTwoState extends State<_HeaderWidgetTwo> {
   
   @override
   Widget build(BuildContext context) {
-    final _loginErrorText = this._loginErrorText;
+    final loginErrorText = _loginErrorText;
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Container(
+        SizedBox(
           height: 44,
           child: TextField(
             controller: _loginTextController,
@@ -131,7 +131,7 @@ class __HeaderWidgetTwoState extends State<_HeaderWidgetTwo> {
               border: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(8),
               ),
-              enabledBorder: _loginErrorText != null
+              enabledBorder: loginErrorText != null
                   ? OutlineInputBorder(
                       borderRadius: BorderRadius.circular(8),
                       borderSide: const BorderSide(color: Colors.red),
@@ -144,11 +144,11 @@ class __HeaderWidgetTwoState extends State<_HeaderWidgetTwo> {
             ),
           ),
         ),
-        if (_loginErrorText != null)
+        if (loginErrorText != null)
           Container(
             padding: const EdgeInsets.only(top: 8),
             child: Text(
-              _loginErrorText,
+              loginErrorText,
               style: const TextStyle(color: Colors.red, fontSize: 13),
             ),
           ),

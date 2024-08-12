@@ -1,5 +1,5 @@
-import 'dart:math';
 import 'package:flutter/material.dart';
+import 'package:flutter_vk_app/widgets/auth/login_widget.dart';
 
 class AuthWidget extends StatefulWidget {
   const AuthWidget({super.key});
@@ -69,7 +69,9 @@ class _HeaderWidget extends StatelessWidget {
           Container(
             padding: const EdgeInsets.only(top: 10),
             child: ElevatedButton(
-              onPressed: () {},
+              onPressed: () {
+                Navigator.pushNamed(context, '/login');
+              },
               style: ElevatedButton.styleFrom(
                 backgroundColor: const Color(0xFFffffff),
                 minimumSize: const Size(double.infinity, 36),
@@ -116,3 +118,4 @@ class _HeaderWidgetTwo extends StatelessWidget {
     );
   }
 }
+

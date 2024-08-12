@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_vk_app/widgets/auth/auth_widget.dart';
+import 'package:flutter_vk_app/widgets/auth/code_widget.dart';
 import 'package:flutter_vk_app/widgets/auth/login_widget.dart';
+import 'package:flutter_vk_app/widgets/auth/password_widget.dart';
 
 void main() {
   runApp(const MyApp());
@@ -18,7 +20,18 @@ class MyApp extends StatelessWidget {
         ),
         useMaterial3: true,
       ),
-      home: LoginWidget(),
+      routes: {
+        '/': (context) => AuthWidget(),
+        '/login': (context) => LoginWidget(),
+        '/code': (context) => CodeWidget(),
+        '/password': (context) => PasswordWidget(),
+      },
+      initialRoute: '/',
+      onGenerateRoute: (settings) {
+        return MaterialPageRoute(
+          builder: (context) => AuthWidget(),
+        );
+      },
     );
   }
 }
