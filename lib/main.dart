@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_vk_app/Theme/app_colors.dart';
 import 'package:flutter_vk_app/widgets/auth/auth_widget.dart';
 import 'package:flutter_vk_app/widgets/auth/code_widget.dart';
 import 'package:flutter_vk_app/widgets/auth/login_widget.dart';
 import 'package:flutter_vk_app/widgets/auth/password_widget.dart';
+import 'package:flutter_vk_app/widgets/main_screen/main_screen_widget.dart';
 
 void main() {
   runApp(const MyApp());
@@ -16,7 +18,12 @@ class MyApp extends StatelessWidget {
       title: 'Vk',
       theme: ThemeData(
         appBarTheme: const AppBarTheme(
-          backgroundColor: Color(0xFF19191a),
+          backgroundColor: AppColors.primary,
+        ),
+        bottomNavigationBarTheme: const BottomNavigationBarThemeData(
+          backgroundColor: AppColors.primary,// Цвет фона
+          selectedItemColor: Colors.white,// Цвет выбранного элемента
+          unselectedItemColor: Colors.grey,// Цвет невыбранных элементов
         ),
         useMaterial3: true,
       ),
@@ -25,6 +32,7 @@ class MyApp extends StatelessWidget {
         '/login': (context) => LoginWidget(),
         '/code': (context) => CodeWidget(),
         '/password': (context) => PasswordWidget(),
+        '/main_screen': (context) => MainScreenWidget(),
       },
       initialRoute: '/',
       onGenerateRoute: (settings) {

@@ -74,7 +74,7 @@ class __HeaderWidgetTwoState extends State<_HeaderWidgetTwo> {
     final password = _passwordController.text;
     if (password == 'admin') {
       _passwordErrorText = null;
-      print('ебать админ');
+      Navigator.pushNamedAndRemoveUntil(context, '/main_screen', (route) => false);
     } else {
       _passwordErrorText = 'Неверный пароль';
     }
