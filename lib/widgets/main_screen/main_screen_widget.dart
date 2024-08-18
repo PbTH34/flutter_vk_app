@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_vk_app/Theme/app_colors.dart';
 
 class MainScreenWidget extends StatefulWidget {
   const MainScreenWidget({super.key});
@@ -10,6 +9,14 @@ class MainScreenWidget extends StatefulWidget {
 
 class _MainScreenWidgetState extends State<MainScreenWidget> {
   int _selectedTab = 0;
+
+  static const List<Widget> _tabs = <Widget>[
+    Text('Главная'),
+    Text('Видео'),
+    Text('Мессенджер'),
+    Text('Уведомления'),
+    Text('Ещё'),
+  ];
 
   void _onSelectedTab(int index) {
     if (_selectedTab == index) return;
@@ -26,6 +33,9 @@ class _MainScreenWidgetState extends State<MainScreenWidget> {
           'Главная',
           style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 25),
         ),
+      ),
+      body: Center(
+        child: _tabs.elementAt(_selectedTab),
       ),
       bottomNavigationBar: BottomNavigationBar(
         type: BottomNavigationBarType.fixed,

@@ -24,6 +24,8 @@ class MyApp extends StatelessWidget {
           backgroundColor: AppColors.primary,// Цвет фона
           selectedItemColor: Colors.white,// Цвет выбранного элемента
           unselectedItemColor: Colors.grey,// Цвет невыбранных элементов
+          selectedLabelStyle: TextStyle(fontSize: 11), // Устанавливаем одинаковый размер шрифта
+          unselectedLabelStyle: TextStyle(fontSize: 11), // Устанавливаем одинаковый размер шрифта
         ),
         useMaterial3: true,
       ),
