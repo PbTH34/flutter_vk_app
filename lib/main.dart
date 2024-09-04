@@ -8,6 +8,7 @@ import 'package:flutter_vk_app/widgets/main_screen/main_screen_widget.dart';
 
 void main() {
   runApp(const MyApp());
+
 }
 
 class MyApp extends StatelessWidget {

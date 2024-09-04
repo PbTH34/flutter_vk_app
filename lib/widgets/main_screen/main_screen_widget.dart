@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_vk_app/widgets/eshe_screen/friend_list_widget.dart';
 
 class MainScreenWidget extends StatefulWidget {
   const MainScreenWidget({super.key});
@@ -10,12 +11,12 @@ class MainScreenWidget extends StatefulWidget {
 class _MainScreenWidgetState extends State<MainScreenWidget> {
   int _selectedTab = 0;
 
-  static const List<Widget> _tabs = <Widget>[
-    Text('Главная'),
-    Text('Видео'),
-    Text('Мессенджер'),
-    Text('Уведомления'),
-    Text('Ещё'),
+  static final List<Widget> _tabs = <Widget>[
+    const Text('Главная'),
+    const Text('Видео'),
+    const Text('Мессенджер'),
+    const Text('Уведомления'),
+    FriendListWidget(),
   ];
 
   void _onSelectedTab(int index) {

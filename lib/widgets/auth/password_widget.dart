@@ -65,7 +65,7 @@ class _HeaderWidgetTwo extends StatefulWidget {
 }
 
 class __HeaderWidgetTwoState extends State<_HeaderWidgetTwo> {
-  bool _visibility = false;
+  bool _visibility = true;
   final TextEditingController _passwordController = TextEditingController();
   bool _isPasswordFieldEmpty = true;
   String? _passwordErrorText;
