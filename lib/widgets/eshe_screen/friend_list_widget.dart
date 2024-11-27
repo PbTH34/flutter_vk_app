@@ -4,11 +4,13 @@ import 'package:flutter_vk_app/Theme/app_colors.dart';
 import 'package:flutter_vk_app/images.dart';
 
 class Friend {
+  final int id;
   final String imageName;
   final String name;
   final String surname;
 
   Friend({
+    required this.id,
     required this.imageName,
     required this.name, 
     required this.surname
@@ -27,31 +29,37 @@ class FriendListWidget extends StatefulWidget {
 class _FriendListWidgetState extends State<FriendListWidget> {
   final _friends = [
     Friend(
+      id: 1,
       imageName:AppImages.krasavchik, 
       name: 'Васян',
       surname: 'Эгегейчиков',
     ),
     Friend(
+      id: 2,
       imageName:AppImages.krasavchik, 
       name: 'Пупся',
       surname: 'Пупсиков',
     ),
     Friend(
+      id: 3,
       imageName:AppImages.krasavchik, 
       name: 'Чмоня',
       surname: 'Петухов',
     ),
     Friend(
+      id: 4,
       imageName:AppImages.krasavchik, 
       name: 'Нуб',
       surname: 'Нубятский',
     ),
     Friend(
+      id: 5,
       imageName:AppImages.krasavchik, 
       name: 'Хуй',
       surname: 'Вонючий',
     ),
     Friend(
+      id: 6,
       imageName:AppImages.krasavchik, 
       name: 'Артур',
       surname: 'Лампоёбов',
@@ -59,14 +67,34 @@ class _FriendListWidgetState extends State<FriendListWidget> {
     
   ];
 
+var _filteredFriends = <Friend>[];
+
   final _searchController = TextEditingController();
 
-  void _searchFriends() {}
+  void _searchFriends() {
+    final query = _searchController.text;
+    if (query.isNotEmpty) {
+      _filteredFriends = _friends.where((Friend friend){
+        final fullname = friend.name.toLowerCase() + friend.surname.toLowerCase();
+       return fullname.contains(query.toLowerCase());
+      }).toList();
+    } else {
+      _filteredFriends = _friends;
+    }
+    setState(() {
+      
+    });
+  }
+  
+  void _onFriendTap(int index){
+    final id =_friends[index].id;
+    Navigator.of(context).pushNamed('/main_screen/friend_details', arguments: id,);
+  }
 
   @override
   void initState() {
     super.initState();
-
+    _filteredFriends = _friends;
     _searchController.addListener(_searchFriends);
   }
 
@@ -79,16 +107,14 @@ class _FriendListWidgetState extends State<FriendListWidget> {
           ListView.builder(
             padding: const EdgeInsets.only(top: 70),
             keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
-            itemCount: _friends.length,
+            itemCount: _filteredFriends.length,
             itemExtent: 56,
             itemBuilder: (BuildContext context, int index) {
-              final friend = _friends[index];
+              final friend = _filteredFriends[index];
               return Container(
                 padding: const EdgeInsets.symmetric(vertical: 6,horizontal: 12),
                 child: GestureDetector(
-                  onTap: (){
-                    print('переход на страницу');
-                  },
+                  onTap: () => _onFriendTap(index),
                   child: Row(
                     children: [
                       CircleAvatar(

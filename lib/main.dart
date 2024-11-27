@@ -4,6 +4,7 @@ import 'package:flutter_vk_app/widgets/auth/auth_widget.dart';
 import 'package:flutter_vk_app/widgets/auth/code_widget.dart';
 import 'package:flutter_vk_app/widgets/auth/login_widget.dart';
 import 'package:flutter_vk_app/widgets/auth/password_widget.dart';
+import 'package:flutter_vk_app/widgets/friend_details/friend_details_widget.dart';
 import 'package:flutter_vk_app/widgets/main_screen/main_screen_widget.dart';
 
 void main() {
@@ -36,6 +37,15 @@ class MyApp extends StatelessWidget {
         '/code': (context) => CodeWidget(),
         '/password': (context) => PasswordWidget(),
         '/main_screen': (context) => MainScreenWidget(),
+        '/main_screen/friend_details': (context) {
+          final arguments = ModalRoute.of(context)?.settings.arguments;
+          if (arguments is int){
+            return FriendDetailsWidget(friendId: arguments);
+          } else {
+            return FriendDetailsWidget(friendId: 0);
+          }
+          
+        },
       },
       initialRoute: '/',
       onGenerateRoute: (settings) {

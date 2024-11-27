@@ -11,14 +11,6 @@ class MainScreenWidget extends StatefulWidget {
 class _MainScreenWidgetState extends State<MainScreenWidget> {
   int _selectedTab = 0;
 
-  static final List<Widget> _tabs = <Widget>[
-    const Text('Главная'),
-    const Text('Видео'),
-    const Text('Мессенджер'),
-    const Text('Уведомления'),
-    FriendListWidget(),
-  ];
-
   void _onSelectedTab(int index) {
     if (_selectedTab == index) return;
     setState(() {
@@ -35,8 +27,15 @@ class _MainScreenWidgetState extends State<MainScreenWidget> {
           style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 25),
         ),
       ),
-      body: Center(
-        child: _tabs.elementAt(_selectedTab),
+      body: IndexedStack(
+        index: _selectedTab,
+        children: [
+          const Text('Главная'),
+          const Text('Видео'),
+          const Text('Мессенджер'),
+          const Text('Уведомления'),
+          FriendListWidget(),
+        ],
       ),
       bottomNavigationBar: BottomNavigationBar(
         type: BottomNavigationBarType.fixed,
