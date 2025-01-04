@@ -11,6 +11,8 @@ class FriendDetailsInfoWidget extends StatelessWidget {
         _TopHatWidget(),
         SizedBox(height: 10,),
         _FriendsInfo(),
+        SizedBox(height: 10,),
+        _menuItems(),
       ],
     );
   }
@@ -22,7 +24,7 @@ class _TopHatWidget extends StatelessWidget {
   final String name;
   final String? status;
 
-  const _TopHatWidget({super.key, this.backgroundUrl, this.profilePhotoUrl, this.name = 'Альтушка Нефорская', this.status,});
+  const _TopHatWidget({super.key, this.backgroundUrl, this.profilePhotoUrl, this.name = 'Альтушка Нефорская', this.status ='хауди хо ебланчики',});
 
   @override
   Widget build(BuildContext context) {
@@ -67,7 +69,7 @@ class _TopHatWidget extends StatelessWidget {
                 if (status != null && status!.isNotEmpty)
                   Text(
                     status!,
-                    style: TextStyle(fontSize: 16, color: Colors.grey),
+                    style: TextStyle(fontSize: 16, color: Colors.white),
                   ),
                   SizedBox(height: 8),
                   Row(
@@ -165,10 +167,11 @@ class _FriendsInfo extends StatelessWidget {
       child: Row(
         children: [
           Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
                 "0 друзей",
-                
+                textAlign: TextAlign.start,
                 style: TextStyle(
                   color: Colors.white,
                   fontWeight: FontWeight.bold,
@@ -176,14 +179,111 @@ class _FriendsInfo extends StatelessWidget {
               ),
               Text(
                 "друзей нет хули, сосал?",
-                style: TextStyle(
-                ),
+                style: TextStyle(color: Color(0xFF76787A)),
+                textAlign: TextAlign.start,
               )
             ],
           ),
-          
         ],
       ),
+    );
+  }
+}
+
+class _menuItems extends StatefulWidget {
+  const _menuItems({super.key});
+
+  @override
+  State<_menuItems> createState() => _menuItemsState();
+}
+
+bool _isSelected1 = false;
+bool _isSelected2 = false;
+
+class _menuItemsState extends State<_menuItems> {
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: double.infinity,
+      height: 48,
+      decoration: BoxDecoration(
+        color: Color(0xFF19191A),
+        borderRadius: BorderRadius.only(
+          topLeft: Radius.circular(10),
+          topRight: Radius.circular(10),
+          )
+        ),
+        padding: EdgeInsets.symmetric(vertical: 4, horizontal: 8),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                elevation: 0,
+                backgroundColor: _isSelected1 ? Colors.grey.shade800 : Colors.transparent,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(8),
+                  ),
+                ),
+              onPressed: () {
+                setState(() {
+                  if (_isSelected1 == true){
+                    print('открыть фото');
+                  } else {
+                    _isSelected1 = !_isSelected1;
+                    _isSelected2 = false;
+                  }
+                  });
+                },
+                child: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Icon(
+                      Icons.photo_outlined,
+                      color: _isSelected1 ? Colors.white : Colors.grey,
+                    ),
+                    SizedBox(width: 8),
+                    Text("Фото",
+                    style: TextStyle(color: _isSelected1 ? Colors.white : Colors.grey,),),
+                    ],
+                  ),
+              ),
+              SizedBox(
+                width: 5,
+              ),
+              ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                elevation: 0,
+                backgroundColor: _isSelected2 ? Colors.grey.shade800 : Colors.transparent,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(8),
+                  ),
+                ),
+              onPressed: () {
+                setState(() {
+                  if (_isSelected2 == true){
+                    print('открыть альбом');
+                  } else {
+                    _isSelected2 = !_isSelected2;
+                    _isSelected1 = false;
+                  }
+                  });
+                },
+                child: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Icon(
+                      Icons.photo_camera_back_outlined,
+                      color: _isSelected2 ? Colors.white : Colors.grey,
+                    ),
+                    SizedBox(width: 8),
+                    Text("Альбом",
+                    style: TextStyle(color: _isSelected2 ? Colors.white : Colors.grey,),),
+                    ],
+                  ),
+              ),
+          ],
+        ),
     );
   }
 }

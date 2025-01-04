@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_vk_app/widgets/friend_details/friend_details_info_widget.dart';
+import 'package:flutter_vk_app/widgets/friend_details/friend_details_photo_widget.dart';
 
 class FriendDetailsWidget extends StatefulWidget {
   final int friendId;
@@ -27,6 +28,7 @@ class _FriendDetailsWidgetState extends State<FriendDetailsWidget> {
             ListView(
               children: [
                 FriendDetailsInfoWidget(),
+                FriendDetailsPhotoWidget(),
               ],
             ),
             _appBarButton(),
